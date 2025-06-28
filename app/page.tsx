@@ -6,7 +6,7 @@ import InstrumentsList from './instruments/instruments-list';
 
 export default async function Home() {
   const supabase = await createClient();
-  const { data: instruments } = await supabase.from("instruments").select();
+  const { data: instruments } = await supabase.rpc("get_instruments", {});
 
   return (
     <main className="min-h-screen flex flex-col items-center">
@@ -18,7 +18,7 @@ export default async function Home() {
         </nav>
         <div>
           <h1>Instruments</h1>
-          <InstrumentsList instruments={instruments || []} />
+          <InstrumentsList instruments={instruments} />
         </div>
       </div>
     </main>
