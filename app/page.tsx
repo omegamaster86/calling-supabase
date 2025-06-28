@@ -2,6 +2,7 @@ import { EnvVarWarning } from "@/components/env-var-warning";
 import { AuthButton } from "@/components/auth-button";
 import { hasEnvVars } from "@/lib/utils";
 import { createClient } from '@/lib/supabase/server';
+import InstrumentsList from './instruments/instruments-list';
 
 export default async function Home() {
   const supabase = await createClient();
@@ -15,7 +16,10 @@ export default async function Home() {
             {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
           </div>
         </nav>
-        <pre>{JSON.stringify(instruments, null, 2)}</pre>
+        <div>
+          <h1>Instruments</h1>
+          <InstrumentsList instruments={instruments || []} />
+        </div>
       </div>
     </main>
   );
