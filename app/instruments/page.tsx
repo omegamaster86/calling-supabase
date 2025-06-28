@@ -1,8 +1,18 @@
 import { createClient } from '@/lib/supabase/server';
+import InstrumentsList from './instruments-list';
 
-export default async function Instruments() {
+export default async function InstrumentsPage() {
   const supabase = await createClient();
-  const { data: instruments } = await supabase.from("instruments").select();
+  const { data: instruments, error } = await supabase.rpc("get_instruments", {});
+  
+  if (error) {
+    return <div>Error loading instruments</div>;
+  }
 
-  return <pre>{JSON.stringify(instruments, null, 2)}</pre>
+  return (
+    <div>
+      <h1>Instruments</h1>
+      <InstrumentsList instruments={instruments || []} />
+    </div>
+  );
 }
