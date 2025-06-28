@@ -17,7 +17,6 @@ export default async function Home() {
           </div>
         </nav>
         <div>
-          <h1>Instruments</h1>
           <InstrumentsList instruments={instruments} />
         </div>
       </div>
