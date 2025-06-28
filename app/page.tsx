@@ -1,8 +1,18 @@
 import { EnvVarWarning } from "@/components/env-var-warning";
 import { AuthButton } from "@/components/auth-button";
 import { hasEnvVars } from "@/lib/utils";
+import { createClient } from '@/lib/supabase/server';
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient();
+  const { data: instruments, error } = await supabase.from("instruments").select();
+  console.log(instruments);
+
+  if (error) {
+    console.error("Error fetching instruments:", error);
+  }
+  console.log("Fetched instruments:", instruments);
+
   return (
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
@@ -11,6 +21,7 @@ export default function Home() {
             {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
           </div>
         </nav>
+        <pre>{JSON.stringify(instruments, null, 2)}</pre>
       </div>
     </main>
   );
