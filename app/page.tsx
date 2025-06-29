@@ -1,24 +1,25 @@
 import { EnvVarWarning } from "@/components/env-var-warning";
 import { AuthButton } from "@/components/auth-button";
 import { hasEnvVars } from "@/lib/utils";
-import { createClient } from '@/lib/supabase/server';
-import InstrumentsList from './instruments/instruments-list';
+import Dashboard from './dashboard/dashboard';
+import { createClient } from "@/lib/supabase/server";
 
 export default async function Home() {
   const supabase = await createClient();
-  const { data: instruments } = await supabase.rpc("get_instruments", {});
+  const { data: callingResult } = await supabase.rpc("get_calling_result", {});
+  console.log(callingResult);
 
   return (
     <main className="min-h-screen flex flex-col items-center">
-      <div className=" w-full flex flex-col items-center">
-        <nav className="w-full border-b border-b-foreground/10">
-          <div className="bg-sky-500 text-white p-3 text-sm flex justify-between items-center">
+      <div className="w-full flex flex-col items-center">
+        <nav className="w-full">
+          <div className="bg-sky-500 text-white p-3 px-16 text-sm flex justify-between items-center">
             <p className="font-bold">calling</p>
             {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
           </div>
         </nav>
         <div>
-          <InstrumentsList instruments={instruments} />
+          <Dashboard callingResult={callingResult}/>
         </div>
       </div>
     </main>
