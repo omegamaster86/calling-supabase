@@ -10,7 +10,7 @@ const dashboard = ({ callingResult }: { callingResult: CallingResultItem[] }) =>
   })) || [];
 
   return (
-    <div className="flex gap-4 h-16 bg-red-600 items-center">
+    <div className="flex flex-wrap gap-4 py-4 bg-sky-300 items-center justify-center mx-auto">
       <NativeSelect
         data={[
           { value: '', label: '架電結果' },
