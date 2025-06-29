@@ -13,12 +13,12 @@ export default async function Home() {
     <main className="min-h-screen flex flex-col items-center">
       <div className="w-full flex flex-col items-center">
         <nav className="w-full">
-          <div className="bg-sky-500 text-white p-3 px-16 text-sm flex justify-between items-center">
+          <div className="bg-blue-500 text-white p-3 px-16 text-sm flex justify-between items-center">
             <p className="font-bold">calling</p>
             {!hasEnvVars ? <EnvVarWarning /> : <AuthButton />}
           </div>
         </nav>
-        <div>
+        <div className="w-full">
           <Dashboard callingResult={callingResult}/>
         </div>
       </div>
