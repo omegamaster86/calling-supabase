@@ -3,6 +3,9 @@ import { Company } from '../types';
 import { TableHeader } from './_components/table-header';
 import { TableCell } from './_components/table-cell';
 
+interface CompanyListProps {
+  companies: Company[];
+}
 
 const dummyCompanies: Company[] = [
   {
@@ -85,9 +88,6 @@ const dummyCompanies: Company[] = [
   }
 ];
 
-interface CompanyListProps {
-  companies?: Company[];
-}
 
 const CompanyList = ({ companies }: CompanyListProps) => {
   // propsで渡されたデータがない場合はダミーデータを使用
