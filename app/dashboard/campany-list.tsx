@@ -97,11 +97,11 @@ const CompanyList = ({ companies }: CompanyListProps) => {
     <table className="w-full border-collapse border border-gray-300">
       <thead>
         <tr>
-          <TableHeader>住所</TableHeader>
           <TableHeader>架電結果</TableHeader>
           <TableHeader>営業担当者</TableHeader>
           <TableHeader>次回予定日</TableHeader>
           <TableHeader>会社名</TableHeader>
+          <TableHeader>住所</TableHeader>
           <TableHeader>電話番号</TableHeader>
           <TableHeader>業界</TableHeader>
           <TableHeader>名前</TableHeader>
@@ -112,11 +112,11 @@ const CompanyList = ({ companies }: CompanyListProps) => {
       <tbody>
         {displayCompanies.map((company, index) => (
           <tr key={company.id} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-200'}>
-            <TableCell>{company.location}</TableCell>
             <TableCell>{company.calling_result}</TableCell>
             <TableCell>{company.sales_person}</TableCell>
             <TableCell>{company.next_call_date}</TableCell>
             <TableCell isBlue>{company.company_name}</TableCell>
+            <TableCell>{company.location}</TableCell>
             <TableCell>{company.phone_number}</TableCell>
             <TableCell>{company.industry}</TableCell>
             <TableCell>{company.name}</TableCell>
