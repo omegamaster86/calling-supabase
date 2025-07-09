@@ -1,5 +1,5 @@
 import React from 'react'
-import { CompanyInfo } from '../types';
+import type { CompanyInfo } from '../types';
 import { TableHeader } from './_components/table-header';
 import { TableCell } from './_components/table-cell';
 
