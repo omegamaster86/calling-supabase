@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 export default async function Home() {
   const supabase = await createClient();
   const { data: callingResult } = await supabase.rpc("get_calling_result", {});
+  const { data: companies } = await supabase.rpc("get_company_information", {});
 
   return (
     <main className="min-h-screen flex flex-col items-center">
@@ -20,7 +21,7 @@ export default async function Home() {
         </nav>
         <div className="w-full">
           <Dashboard callingResult={callingResult}/>
-          <CompanyList />
+          <CompanyList companies={companies} />
         </div>
       </div>
     </main>
