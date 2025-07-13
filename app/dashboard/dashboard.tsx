@@ -3,6 +3,7 @@
 import { Input, NativeSelect } from "@mantine/core";
 import Link from "next/link";
 import { useState } from "react";
+import { formatDate } from "@/components/format-day";
 import type { CallingResultItem, CompanyInfo } from "../types";
 import { TableCell } from "./_components/table-cell";
 import { TableHeader } from "./_components/table-header";
@@ -150,7 +151,11 @@ const Dashboard = ({ callingResult, companies }: DashboardProps) => {
 						>
 							<TableCell>{company.calling_result || "-"}</TableCell>
 							<TableCell>{company.salse_person || "-"}</TableCell>
-							<TableCell>{company.next_calling_day || "-"}</TableCell>
+							<TableCell>
+								{company.next_calling_day
+									? formatDate(company.next_calling_day)
+									: ""}
+							</TableCell>
 							<TableCell isBlue>
 								<Link
 									href={`/attacklog?company_id=${company.company_id}`}
