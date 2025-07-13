@@ -13,8 +13,8 @@ interface AttackLogProps {
 
 const AttackLog = async ({ searchParams }: AttackLogProps) => {
 	const supabase = await createClient();
-	const { data: callingResult } = await supabase.rpc("get_calling_result", {});
-	const { data: companies } = await supabase.rpc("get_company_information", {});
+	const { data: callingResult } = await supabase.rpc("get_calling_result");
+	const { data: companies } = await supabase.rpc("get_company_information");
 
 	const selectedCompanyId = searchParams.company_id
 		? parseInt(searchParams.company_id)
