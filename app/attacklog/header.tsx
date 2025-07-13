@@ -1,16 +1,36 @@
-
-import { Button} from '@mantine/core';
-import { IconChevronsLeft, IconChevronsRight, IconX } from '@tabler/icons-react';
+import { Button, Group, Title } from "@mantine/core";
+import {
+	IconChevronsLeft,
+	IconChevronsRight,
+	IconX,
+} from "@tabler/icons-react";
+import Link from "next/link";
 
 export const Header = () => {
-  return (
-    <div className="flex justify-between items-center">
-      <p>AttackLog</p>
-      <div className="flex gap-4">
-        <Button leftSection={<IconChevronsLeft size={18} />}>前</Button>
-        <Button leftSection={<IconChevronsRight size={18} />}>次</Button>
-        <Button leftSection={<IconX size={18} />}>閉</Button>
-      </div>
-    </div>
-  )
-}
+	return (
+		<Group justify="space-between" align="center">
+			<Title order={2}>アタックログ</Title>
+			<Group gap="sm">
+				<Button
+					leftSection={<IconChevronsLeft size={18} />}
+					variant="light"
+					color="green"
+				>
+					前
+				</Button>
+				<Button
+					leftSection={<IconChevronsRight size={18} />}
+					variant="light"
+					color="green"
+				>
+					次
+				</Button>
+				<Link href="/">
+				<Button leftSection={<IconX size={18} />} variant="light" color="green">
+					閉
+				</Button>
+				</Link>
+			</Group>
+		</Group>
+	);
+};
