@@ -2,7 +2,6 @@ import { EnvVarWarning } from "@/components/env-var-warning";
 import { AuthButton } from "@/components/auth-button";
 import { hasEnvVars } from "@/lib/utils";
 import Dashboard from './dashboard/dashboard';
-import CompanyList from './dashboard/campany-list';
 import { createClient } from "@/lib/supabase/server";
 
 export default async function Home() {
@@ -20,8 +19,7 @@ export default async function Home() {
           </div>
         </nav>
         <div className="w-full">
-          <Dashboard callingResult={callingResult}/>
-          <CompanyList companies={companies} />
+          <Dashboard callingResult={callingResult} companies={companies}/>
         </div>
       </div>
     </main>
