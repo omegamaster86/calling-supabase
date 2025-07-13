@@ -22,7 +22,6 @@ const Dashboard = ({ callingResult, companies }: DashboardProps) => {
 		salesPerson: "",
 		nextCallDate: "",
 	});
-
 	const selectData =
 		callingResult?.map((item) => ({
 			value: item.id.toString(),
@@ -149,9 +148,9 @@ const Dashboard = ({ callingResult, companies }: DashboardProps) => {
 							key={company.company_id}
 							className={index % 2 === 0 ? "bg-white" : "bg-gray-200"}
 						>
-							<TableCell>-</TableCell>
-							<TableCell>-</TableCell>
-							<TableCell>-</TableCell>
+							<TableCell>{company.calling_result || "-"}</TableCell>
+							<TableCell>{company.salse_person || "-"}</TableCell>
+							<TableCell>{company.next_calling_day || "-"}</TableCell>
 							<TableCell isBlue>
 								<Link
 									href={`/attacklog?company_id=${company.company_id}`}
