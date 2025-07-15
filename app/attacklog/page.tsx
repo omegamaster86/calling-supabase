@@ -7,14 +7,14 @@ import { Header } from "./header";
 import { PersonInfo } from "./person-info";
 
 interface AttackLogProps {
-	searchParams: { company_id?: string };
+	searchParams: { company_id: string };
 }
 
 const AttackLog = async ({ searchParams }: AttackLogProps) => {
 	const supabase = await createClient();
 	const { data: callingResult } = await supabase.rpc("get_calling_result");
 
-	const selectedCompanyId = parseInt(searchParams.company_id!);
+	const selectedCompanyId = parseInt(searchParams.company_id);
 
 	const { data: companyData } = await supabase.rpc("get_company_by_id", {
 		company_id_param: selectedCompanyId,
