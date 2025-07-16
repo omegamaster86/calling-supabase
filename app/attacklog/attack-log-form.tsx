@@ -59,7 +59,7 @@ export const AttackLogForm = ({
 						<TextInput
 							label="架電開始時間"
 							type="datetime-local"
-							placeholder="年/月/日 --:--"
+							placeholder="年/月/日"
 							styles={{
 								label: { color: "#1976d2", fontSize: "14px", fontWeight: 500 },
 							}}
@@ -82,7 +82,7 @@ export const AttackLogForm = ({
 						<TextInput
 							label="次回架電日"
 							type="datetime-local"
-							placeholder="年/月/日 --:--"
+							placeholder="年/月/日"
 							styles={{
 								label: { color: "#1976d2", fontSize: "14px", fontWeight: 500 },
 							}}
