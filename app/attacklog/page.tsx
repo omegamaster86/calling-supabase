@@ -19,13 +19,19 @@ const AttackLog = async ({ searchParams }: AttackLogProps) => {
 	const { data: companyData } = await supabase.rpc("get_company_by_id", {
 		company_id_param: selectedCompanyId,
 	});
+
+	const { data: historyData } = await supabase.rpc(
+		"get_calling_history_by_id",
+		{
+			company_id_param: selectedCompanyId,
+		},
+	);
 	const selectedCompany =
 		companyData && companyData.length > 0 ? companyData[0] : null;
 
 	return (
 		<Container size="xl" py="lg">
 			<Header />
-
 			<Grid mt="xl" gutter="lg">
 				<GridCol span={{ base: 12, lg: 6 }}>
 					<Stack gap="lg">
@@ -37,9 +43,11 @@ const AttackLog = async ({ searchParams }: AttackLogProps) => {
 						/>
 					</Stack>
 				</GridCol>
-
 				<GridCol span={{ base: 12, lg: 6 }}>
-					<AttackHistory selectedCompany={selectedCompany} />
+					<AttackHistory
+						selectedCompany={selectedCompany}
+						historyData={historyData || []}
+					/>
 				</GridCol>
 			</Grid>
 		</Container>
