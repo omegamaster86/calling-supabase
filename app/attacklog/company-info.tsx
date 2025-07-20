@@ -6,7 +6,6 @@ interface CompanyInfoProps {
 	selectedCompany?: CompanyInfo | null;
 }
 
-// 30文字以降を「...」で省略する関数
 const truncateText = (text: string, maxLength: number = 30): string => {
 	if (!text) return "";
 	return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
