@@ -11,41 +11,17 @@ import {
 	Title,
 } from "@mantine/core";
 
-import type { CompanyInfo } from "@/app/types";
+import type { AttackLog, CompanyInfo } from "@/app/types";
 
 interface AttackHistoryProps {
-	selectedCompany?: CompanyInfo | null;
+	selectedCompany: CompanyInfo;
+	historyData?: AttackLog[];
 }
 
-export const AttackHistory = ({ selectedCompany }: AttackHistoryProps) => {
-	const historyData = [
-		{
-			date: "2025/07/24 23:45",
-			result: "テスト",
-			content: "マージ後テスト",
-		},
-		{
-			date: "2025/07/25 19:01",
-			result: "テスト",
-			content: "最新の情報が取得できるかテスト",
-		},
-		{
-			date: "2025/07/25 20:08",
-			result: "テスト",
-			content: "テスト",
-		},
-		{
-			date: "2025/07/25 20:11",
-			result: "テスト",
-			content: "プルダウンテスト",
-		},
-		{
-			date: "2025/07/25 19:14",
-			result: "テスト",
-			content: "usememoテスト",
-		},
-	];
-
+export const AttackHistory = ({
+	selectedCompany,
+	historyData = [],
+}: AttackHistoryProps) => {
 	return (
 		<Paper shadow="sm" p="md" radius="md" withBorder>
 			<Title
@@ -73,11 +49,11 @@ export const AttackHistory = ({ selectedCompany }: AttackHistoryProps) => {
 						</TableTr>
 					</TableThead>
 					<TableTbody>
-						{historyData.map((item, index) => (
-							<TableTr key={`${item.date}-${index}`}>
-								<TableTd>{item.date}</TableTd>
-								<TableTd>{item.result}</TableTd>
-								<TableTd>{item.content}</TableTd>
+						{historyData.map((log) => (
+							<TableTr key={log.id}>
+								<TableTd>{log.next_calling_day}</TableTd>
+								<TableTd>{log.calling_result}</TableTd>
+								<TableTd>{log.content}</TableTd>
 							</TableTr>
 						))}
 					</TableTbody>
