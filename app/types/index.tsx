@@ -15,7 +15,7 @@ export interface CompanyInfo {
 	key_person_phone_number: string;
 	key_person_email: string;
 	key_person_note: string;
-	salse_person: string;
+	sales_person: string;
 	calling_result: string;
 	next_calling_day: string;
 }
@@ -25,6 +25,7 @@ export interface AttackLog {
 	company_id: number;
 	person_id: number;
 	attack_date: string;
-	attack_result: string;
-	attack_note: string;
+	calling_result: string;
+	content: string;
+	next_calling_day: string;
 }
