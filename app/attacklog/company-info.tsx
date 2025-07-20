@@ -8,7 +8,7 @@ interface CompanyInfoProps {
 
 const truncateText = (text: string, maxLength: number = 30): string => {
 	if (!text) return "";
-	return text.length > maxLength ? text.substring(0, maxLength) + "..." : text;
+	return text.length > maxLength ? `${text.substring(0, maxLength)}...` : text;
 };
 
 export const CompanyInformation = ({ selectedCompany }: CompanyInfoProps) => {
