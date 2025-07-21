@@ -12,6 +12,7 @@ import {
 } from "@mantine/core";
 
 import type { AttackLog, CompanyInfo } from "@/app/types";
+import { formatDate } from "@/components/format-day";
 
 interface AttackHistoryProps {
 	selectedCompany: CompanyInfo;
@@ -51,7 +52,7 @@ export const AttackHistory = ({
 					<TableTbody>
 						{historyData.map((log) => (
 							<TableTr key={log.id}>
-								<TableTd>{log.next_calling_day}</TableTd>
+								<TableTd>{formatDate(log.next_calling_day)}</TableTd>
 								<TableTd>{log.calling_result}</TableTd>
 								<TableTd>{log.content}</TableTd>
 							</TableTr>
