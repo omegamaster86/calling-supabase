@@ -15,7 +15,7 @@ export interface CompanyInfo {
 	key_person_phone_number: string;
 	key_person_email: string;
 	key_person_note: string;
-	sales_person: string;
+	salse_person: string;
 	calling_result: string;
 	next_calling_day: string;
 }
