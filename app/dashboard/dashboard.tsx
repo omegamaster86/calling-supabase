@@ -1,6 +1,6 @@
 "use client";
 
-import { Input, NativeSelect } from "@mantine/core";
+import { Button, Input, NativeSelect } from "@mantine/core";
 import Link from "next/link";
 import { useState } from "react";
 import { formatDate } from "@/components/format-day";
@@ -125,6 +125,19 @@ const Dashboard = ({ callingResult, companies }: DashboardProps) => {
 						setFilters({ ...filters, nextCallDate: event.currentTarget.value })
 					}
 				/>
+			</div>
+
+			<div className="flex justify-center py-4 gap-16">
+				{/* <Button>
+					<Link href="/appointment-list">
+						<p>アポ一覧へ</p>
+					</Link>
+				</Button> */}
+				<Button>
+					<Link href="/upload-company">
+						<p>会社情報をアップロード</p>
+					</Link>
+				</Button>
 			</div>
 
 			{/* テーブル部分 */}
