@@ -1,7 +1,8 @@
 "use client";
 
-import { Button } from "@mantine/core";
-import { useActionState, useRef } from "react";
+import { Button, Notification } from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import { useActionState, useRef, useState } from "react";
 import LabeledInput from "./_components/labeled-input";
 import { type FormState, registerCompany } from "./actions";
 
@@ -10,8 +11,11 @@ const RegisterNewCompany = () => {
 		registerCompany,
 		{ success: false },
 	);
-
+	const xIcon = <IconX size={20} />;
+	const checkIcon = <IconCheck size={20} />;
 	const formRef = useRef<HTMLFormElement>(null);
+	const [hideError, setHideError] = useState(false);
+	const [hideSuccess, setHideSuccess] = useState(false);
 
 	return (
 		<form ref={formRef} action={formAction}>
@@ -82,19 +86,30 @@ const RegisterNewCompany = () => {
 				/>
 			</div>
 
-			{/* エラー・成功メッセージ */}
-			<div className="mt-4 min-h-[40px]">
-				{state.error && (
-					<p className="p-3 bg-red-100 border border-red-400 text-red-700 rounded animate-[fadeOut_3s_ease-in-out_forwards]">
-						{state.error}
-					</p>
-				)}
-				{state.message && (
-					<p className="p-3 bg-green-100 border border-green-400 text-green-700 rounded animate-[fadeOut_3s_ease-in-out_forwards]">
-						{state.message}
-					</p>
-				)}
-			</div>
+			{/* エラー通知 */}
+			{state.error && !hideError && (
+				<Notification
+					icon={xIcon}
+					color="red"
+					title="エラー"
+					className="mt-4"
+					onClose={() => setHideError(true)}
+				>
+					{state.error}
+				</Notification>
+			)}
+			{/* 成功通知 */}
+			{state.message && !hideSuccess && (
+				<Notification
+					icon={checkIcon}
+					color="green"
+					title="成功"
+					className="mt-4"
+					onClose={() => setHideSuccess(true)}
+				>
+					{state.message}
+				</Notification>
+			)}
 
 			<Button
 				type="submit"
