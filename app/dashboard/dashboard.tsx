@@ -4,16 +4,15 @@ import { Button, Input, NativeSelect } from "@mantine/core";
 import Link from "next/link";
 import { useState } from "react";
 import { formatDate } from "@/components/format-day";
-import type { CallingResultItem, CompanyInfo } from "../types";
+import type { CompanyInfo } from "../types";
 import { TableCell } from "./_components/table-cell";
 import { TableHeader } from "./_components/table-header";
 
 interface DashboardProps {
-	callingResult: CallingResultItem[];
 	companies: CompanyInfo[];
 }
 
-const Dashboard = ({ callingResult, companies }: DashboardProps) => {
+const Dashboard = ({ companies }: DashboardProps) => {
 	// フィルター状態
 	const [filters, setFilters] = useState({
 		callingResult: "",
@@ -23,17 +22,22 @@ const Dashboard = ({ callingResult, companies }: DashboardProps) => {
 		salesPerson: "",
 		nextCallDate: "",
 	});
-	const selectData =
-		callingResult?.map((item) => ({
-			value: item.id.toString(),
-			label: item.name,
-		})) || [];
+	// 架電結果の選択肢を会社データから生成（重複を除去）
+	const uniqueCallingResults = Array.from(
+		new Set(companies?.map((company) => company.calling_result).filter(Boolean))
+	);
+	const callingResultSelectData = uniqueCallingResults.map((result) => ({
+		value: result,
+		label: result,
+	}));
+
 
 	const filteredCompanies =
 		companies?.filter((company) => {
-			// 架電結果（完全一致）
 			if (filters.callingResult && filters.callingResult !== "") {
-				// 実際の架電結果データがないため、この条件はスキップ
+				if (company.calling_result !== filters.callingResult) {
+					return false;
+				}
 			}
 
 			if (
@@ -55,18 +59,28 @@ const Dashboard = ({ callingResult, companies }: DashboardProps) => {
 				}
 			}
 
-			if (filters.industry && company.department_name !== filters.industry) {
-				return false;
+			if (filters.industry) {
+				const industryToCheck = company.department_name || "";
+				if (!industryToCheck.toLowerCase().includes(filters.industry.toLowerCase())) {
+					return false;
+				}
 			}
 
 			if (filters.salesPerson) {
-				// 実際の営業担当データがないため、この条件はスキップ
+				const salesPersonToCheck = company.salse_person || "";
+				if (!salesPersonToCheck.toLowerCase().includes(filters.salesPerson.toLowerCase())) {
+					return false;
+				}
 			}
 
 			if (filters.nextCallDate) {
-				// 実際の次回架電日データがないため、この条件はスキップ
+				const nextCallDateToCheck = company.next_calling_day 
+					? formatDate(company.next_calling_day) 
+					: "";
+				if (!nextCallDateToCheck.includes(filters.nextCallDate)) {
+					return false;
+				}
 			}
-
 			return true;
 		}) || [];
 
@@ -78,7 +92,7 @@ const Dashboard = ({ callingResult, companies }: DashboardProps) => {
 			{/* フィルター部分 */}
 			<div className="flex flex-wrap gap-4 py-4 bg-sky-300 items-center justify-center mx-auto">
 				<NativeSelect
-					data={[{ value: "", label: "架電結果" }, ...selectData]}
+					data={[{ value: "", label: "架電結果" }, ...callingResultSelectData]}
 					w={150}
 					value={filters.callingResult}
 					onChange={(event) =>
