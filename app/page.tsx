@@ -6,7 +6,6 @@ import Dashboard from "./dashboard/dashboard";
 
 export default async function Home() {
 	const supabase = await createClient();
-	const { data: callingResult } = await supabase.rpc("get_calling_result");
 	const { data: companies } = await supabase.rpc("get_company_information");
 
 	return (
@@ -19,7 +18,7 @@ export default async function Home() {
 					</div>
 				</nav>
 				<div className="w-full">
-					<Dashboard callingResult={callingResult} companies={companies} />
+					<Dashboard companies={companies} />
 				</div>
 			</div>
 		</main>
