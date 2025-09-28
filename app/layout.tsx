@@ -3,6 +3,7 @@ import { Geist } from "next/font/google";
 import "./globals.css";
 import '@mantine/core/styles.css';
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -32,7 +33,9 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.className} antialiased`}>
         <MantineProvider>
-          {children}
+          <NuqsAdapter>
+            {children}
+          </NuqsAdapter>
         </MantineProvider>
       </body>
     </html>
