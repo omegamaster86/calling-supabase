@@ -41,7 +41,16 @@ export const AttackHistory = ({
 			</Title>
 
 			<ScrollArea>
-				<Table striped highlightOnHover>
+				<Table
+					striped
+					highlightOnHover
+					style={{ tableLayout: "fixed", width: "100%" }}
+				>
+					<colgroup>
+						<col style={{ width: 180 }} />
+						<col style={{ width: 160 }} />
+						<col />
+					</colgroup>
 					<TableThead>
 						<TableTr>
 							<TableTh>アタック日</TableTh>
@@ -54,7 +63,15 @@ export const AttackHistory = ({
 							<TableTr key={log.id}>
 								<TableTd>{formatDate(log.next_calling_day)}</TableTd>
 								<TableTd>{log.calling_result}</TableTd>
-								<TableTd>{log.content}</TableTd>
+								<TableTd
+									style={{
+										whiteSpace: "pre-wrap",
+										wordBreak: "break-word",
+										overflowWrap: "anywhere",
+									}}
+								>
+									{log.content}
+								</TableTd>
 							</TableTr>
 						))}
 					</TableTbody>
