@@ -42,7 +42,10 @@ export const Header = () => {
   const go = (nextIndex: number) => {
     if (nextIndex < 0 || nextIndex >= idsList.length) return;
     const nextId = idsList[nextIndex];
-    setQuery({ pos: nextIndex, company_id: String(nextId) });
+    setQuery(
+      { pos: nextIndex, company_id: String(nextId) },
+      { history: 'push', shallow: false }
+    );
   };
 
   return (
