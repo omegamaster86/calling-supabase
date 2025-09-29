@@ -24,7 +24,7 @@ export interface AttackLog {
 	id: number;
 	company_id: number;
 	person_id: number;
-	attack_date: string;
+	calling_start: string;
 	calling_result: string;
 	content: string;
 	next_calling_day: string;
