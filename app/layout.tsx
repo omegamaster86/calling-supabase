@@ -4,6 +4,7 @@ import "./globals.css";
 import '@mantine/core/styles.css';
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
+import AppShell from "@/components/app-shell";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -34,7 +35,9 @@ export default function RootLayout({
       <body className={`${geistSans.className} antialiased`}>
         <MantineProvider>
           <NuqsAdapter>
-            {children}
+            <AppShell>
+              {children}
+            </AppShell>
           </NuqsAdapter>
         </MantineProvider>
       </body>
