@@ -9,31 +9,47 @@ export type FormState = {
 };
 
 export async function registerCompany(
-	prevState: FormState,
-	formData: FormData,
+    prevState: FormState,
+    formData: FormData,
 ): Promise<FormState> {
-	try {
-		const supabase = await createClient();
+    try {
+        const supabase = await createClient();
 
-		const company = {
-			company_name_param: formData.get("company_name") as string,
-			address_param: formData.get("address") as string,
-			company_website_param: formData.get("website") as string,
-			registered_phone_number_param: formData.get(
-				"registered_phone_number",
-			) as string,
-			department_name_param: formData.get("department") as string,
-			key_person_name_param: formData.get("name") as string,
-			key_person_position_param: formData.get("position") as string,
-			key_person_phone_number_param: formData.get("phone_number") as string,
-			key_person_email_param: formData.get("email") as string,
-		};
+        const company = {
+            company_name_param: formData.get("company_name") as string,
+            address_param: formData.get("address") as string,
+            company_website_param: formData.get("website") as string,
+            registered_phone_number_param: formData.get(
+                "registered_phone_number",
+            ) as string,
+            department_name_param: formData.get("department") as string,
+            key_person_name_param: formData.get("name") as string,
+            key_person_position_param: formData.get("position") as string,
+            key_person_phone_number_param: formData.get("phone_number") as string,
+            key_person_email_param: formData.get("email") as string,
+        };
 
-		if (!company.company_name_param) {
-			return {
-				error: "会社名は必須です",
-				success: false,
-			};
+        // メールアドレス形式の簡易検証（空の場合はスキップ）
+        const isValidEmail = (email: string) => {
+            const value = email.trim();
+            if (value.length === 0) return true;
+            // 一般的なメール形式の簡易チェック
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(value);
+        };
+
+        if (!isValidEmail(company.key_person_email_param ?? "")) {
+            return {
+                error: "メールアドレスの形式が不正です",
+                success: false,
+            };
+        }
+
+        if (!company.company_name_param) {
+            return {
+                error: "会社名は必須です",
+                success: false,
+            };
 		}
 		if (!company.address_param) {
 			return {
