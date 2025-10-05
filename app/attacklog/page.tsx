@@ -26,6 +26,7 @@ const AttackLog = async ({ searchParams }: AttackLogProps) => {
 			company_id_param: selectedCompanyId,
 		},
 	);
+
 	const selectedCompany =
 		companyData && companyData.length > 0 ? companyData[0] : null;
 
