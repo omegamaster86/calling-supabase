@@ -131,20 +131,6 @@ const Dashboard = ({ companies }: DashboardProps) => {
                 onChange={(event) => setFilters({ nextCallDate: event.currentTarget.value })}
             />
 			</div>
-
-			<div className="flex justify-center py-4 gap-16">
-				<Button>
-					<Link href="/appointment-list">
-						<p>アポ一覧へ</p>
-					</Link>
-				</Button>
-				<Button>
-					<Link href="/upload-company">
-						<p>会社情報をアップロード</p>
-					</Link>
-				</Button>
-			</div>
-
 			{/* テーブル部分 */}
 			<table className="w-full border-collapse border border-gray-300">
 				<thead>
@@ -158,7 +144,6 @@ const Dashboard = ({ companies }: DashboardProps) => {
 						<TableHeader>業界</TableHeader>
 						<TableHeader>名前</TableHeader>
 						<TableHeader>部署</TableHeader>
-						<TableHeader>特記事項</TableHeader>
 					</tr>
 				</thead>
 				<tbody>
@@ -190,7 +175,6 @@ const Dashboard = ({ companies }: DashboardProps) => {
 							<TableCell>{company.department_name}</TableCell>
 							<TableCell>{company.key_person_name}</TableCell>
 							<TableCell>{company.department_name}</TableCell>
-							<TableCell>{company.key_person_note}</TableCell>
 						</tr>
 					))}
 				</tbody>
