@@ -1,0 +1,66 @@
+"use client";
+
+import { CalendarCheck, Home, Upload } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+type NavItem = {
+	href: string;
+	label: string;
+	Icon: React.ComponentType<{ size?: number; className?: string }>;
+	matchPrefix?: boolean;
+};
+
+const navItems: NavItem[] = [
+	{ href: "/", label: "ホーム", Icon: Home, matchPrefix: false },
+	{
+		href: "/appointment-list",
+		label: "アポイント",
+		Icon: CalendarCheck,
+		matchPrefix: true,
+	},
+	{
+		href: "/upload-company",
+		label: "会社登録",
+		Icon: Upload,
+		matchPrefix: true,
+	},
+];
+
+export function Sidebar() {
+	const pathname = usePathname();
+
+	return (
+		<aside className="h-screen sticky top-0 w-16 border-r bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+			<nav className="flex h-full flex-col items-center py-4">
+				<div className="flex-1 flex flex-col items-center pt-20 gap-10">
+					{navItems.map(({ href, label, Icon, matchPrefix }) => {
+						const isActive = matchPrefix
+							? pathname.startsWith(href)
+							: pathname === href;
+						return (
+							<Link
+								key={href}
+								href={href}
+								className={`group flex w-16 flex-col items-center justify-center rounded-md py-2 transition-colors ${
+									isActive
+										? "bg-gradient-to-r from-[#05B1FA] to-[#64D2FE]"
+										: "bg-white"
+								}`}
+								title={label}
+							>
+								<Icon
+									className={`transition-transform group-hover:scale-105 ${
+										isActive ? "text-white" : "text-black"
+									}`}
+									size={22}
+								/>
+								<span className={`mt-1 text-[10px] leading-none ${isActive ? "text-white" : "text-black"}`}>{label}</span>
+							</Link>
+						);
+					})}
+				</div>
+			</nav>
+		</aside>
+	);
+}
