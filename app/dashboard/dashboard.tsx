@@ -133,11 +133,11 @@ const Dashboard = ({ companies }: DashboardProps) => {
 			</div>
 
 			<div className="flex justify-center py-4 gap-16">
-				{/* <Button>
+				<Button>
 					<Link href="/appointment-list">
 						<p>アポ一覧へ</p>
 					</Link>
-				</Button> */}
+				</Button>
 				<Button>
 					<Link href="/upload-company">
 						<p>会社情報をアップロード</p>
