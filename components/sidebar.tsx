@@ -31,9 +31,9 @@ export function Sidebar() {
 	const pathname = usePathname();
 
 	return (
-		<aside className="h-screen sticky top-0 w-16 border-r bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+		<aside className="h-screen w-20 border-r">
 			<nav className="flex h-full flex-col items-center py-4">
-				<div className="flex-1 flex flex-col items-center pt-20 gap-10">
+				<div className="flex flex-col items-center pt-20 gap-10">
 					{navItems.map(({ href, label, Icon, matchPrefix }) => {
 						const isActive = matchPrefix
 							? pathname.startsWith(href)
@@ -42,7 +42,7 @@ export function Sidebar() {
 							<Link
 								key={href}
 								href={href}
-								className={`group flex w-16 flex-col items-center justify-center rounded-md py-2 transition-colors ${
+								className={`group flex w-16 flex-col items-center justify-center border-2 rounded-xl py-2 ${
 									isActive
 										? "bg-gradient-to-r from-[#05B1FA] to-[#64D2FE]"
 										: "bg-white"
@@ -50,12 +50,14 @@ export function Sidebar() {
 								title={label}
 							>
 								<Icon
-									className={`transition-transform group-hover:scale-105 ${
-										isActive ? "text-white" : "text-black"
-									}`}
+									className={`${isActive ? "text-white" : "text-black"}`}
 									size={22}
 								/>
-								<span className={`mt-1 text-[10px] leading-none ${isActive ? "text-white" : "text-black"}`}>{label}</span>
+								<span
+									className={`mt-2 text-[10px] leading-none ${isActive ? "text-white" : "text-black"}`}
+								>
+									{label}
+								</span>
 							</Link>
 						);
 					})}
