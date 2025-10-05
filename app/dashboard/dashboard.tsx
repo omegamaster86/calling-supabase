@@ -2,7 +2,7 @@
 
 import { Button, Input, NativeSelect } from "@mantine/core";
 import Link from "next/link";
-import { useState } from "react";
+import { useQueryStates, parseAsString } from "nuqs";
 import { formatDate } from "@/components/format-day";
 import type { CompanyInfo } from "../types";
 import { TableCell } from "./_components/table-cell";
@@ -13,15 +13,15 @@ interface DashboardProps {
 }
 
 const Dashboard = ({ companies }: DashboardProps) => {
-	// フィルター状態
-	const [filters, setFilters] = useState({
-		callingResult: "",
-		companyName: "",
-		phoneNumber: "",
-		industry: "",
-		salesPerson: "",
-		nextCallDate: "",
-	});
+    // フィルター状態（URL と同期）
+    const [filters, setFilters] = useQueryStates({
+        callingResult: parseAsString.withDefault(""),
+        companyName: parseAsString.withDefault(""),
+        phoneNumber: parseAsString.withDefault(""),
+        industry: parseAsString.withDefault(""),
+        salesPerson: parseAsString.withDefault(""),
+        nextCallDate: parseAsString.withDefault(""),
+    });
 	// 架電結果の選択肢を会社データから生成（重複を除去）
 	const uniqueCallingResults = Array.from(
 		new Set(companies?.map((company) => company.calling_result).filter(Boolean))
@@ -87,6 +87,9 @@ const Dashboard = ({ companies }: DashboardProps) => {
 	const displayCompanies =
 		filteredCompanies.length > 0 ? filteredCompanies : [];
 
+	// 現在の表示順の company_id 一覧（AttackLog へ受け渡し用）
+	const idList = displayCompanies.map((c) => c.company_id);
+
 	return (
 		<div>
 			{/* フィルター部分 */}
@@ -95,50 +98,38 @@ const Dashboard = ({ companies }: DashboardProps) => {
 					data={[{ value: "", label: "架電結果" }, ...callingResultSelectData]}
 					w={150}
 					value={filters.callingResult}
-					onChange={(event) =>
-						setFilters({ ...filters, callingResult: event.currentTarget.value })
-					}
-				/>
-				<Input
-					placeholder="会社名"
-					w={150}
-					value={filters.companyName}
-					onChange={(event) =>
-						setFilters({ ...filters, companyName: event.currentTarget.value })
-					}
-				/>
-				<Input
-					placeholder="電話番号"
-					w={150}
-					value={filters.phoneNumber}
-					onChange={(event) =>
-						setFilters({ ...filters, phoneNumber: event.currentTarget.value })
-					}
-				/>
-				<Input
-					placeholder="業界"
-					w={150}
-					value={filters.industry}
-					onChange={(event) =>
-						setFilters({ ...filters, industry: event.currentTarget.value })
-					}
-				/>
-				<Input
-					placeholder="営業担当"
-					w={150}
-					value={filters.salesPerson}
-					onChange={(event) =>
-						setFilters({ ...filters, salesPerson: event.currentTarget.value })
-					}
-				/>
-				<Input
-					placeholder="次回架電日"
-					w={150}
-					value={filters.nextCallDate}
-					onChange={(event) =>
-						setFilters({ ...filters, nextCallDate: event.currentTarget.value })
-					}
-				/>
+                onChange={(event) => setFilters({ callingResult: event.currentTarget.value })}
+            />
+            <Input
+                placeholder="会社名"
+                w={150}
+                value={filters.companyName}
+                onChange={(event) => setFilters({ companyName: event.currentTarget.value })}
+            />
+            <Input
+                placeholder="電話番号"
+                w={150}
+                value={filters.phoneNumber}
+                onChange={(event) => setFilters({ phoneNumber: event.currentTarget.value })}
+            />
+            <Input
+                placeholder="業界"
+                w={150}
+                value={filters.industry}
+                onChange={(event) => setFilters({ industry: event.currentTarget.value })}
+            />
+            <Input
+                placeholder="営業担当"
+                w={150}
+                value={filters.salesPerson}
+                onChange={(event) => setFilters({ salesPerson: event.currentTarget.value })}
+            />
+            <Input
+                placeholder="次回架電日"
+                w={150}
+                value={filters.nextCallDate}
+                onChange={(event) => setFilters({ nextCallDate: event.currentTarget.value })}
+            />
 			</div>
 
 			<div className="flex justify-center py-4 gap-16">
@@ -185,7 +176,7 @@ const Dashboard = ({ companies }: DashboardProps) => {
 							</TableCell>
 							<TableCell isBlue>
 								<Link
-									href={`/attacklog?company_id=${company.company_id}`}
+									href={`/attacklog?company_id=${company.company_id}&ids=${encodeURIComponent(idList.join(","))}&pos=${index}`}
 									className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
 								>
 									{company.company_name}
