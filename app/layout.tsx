@@ -1,46 +1,45 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
-import '@mantine/core/styles.css';
-import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
-import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import AppShell from "@/components/app-shell";
+import "@mantine/core/styles.css";
+import {
+	ColorSchemeScript,
+	MantineProvider,
+	mantineHtmlProps,
+} from "@mantine/core";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+	? `https://${process.env.VERCEL_URL}`
+	: "http://localhost:3000";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+	metadataBase: new URL(defaultUrl),
+	title: "Next.js and Supabase Starter Kit",
+	description: "The fastest way to build apps with Next.js and Supabase",
 };
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  display: "swap",
-  subsets: ["latin"],
+	variable: "--font-geist-sans",
+	display: "swap",
+	subsets: ["latin"],
 });
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="ja" {...mantineHtmlProps}>
-      <head>
-        <ColorSchemeScript />
-      </head>
-      <body className={`${geistSans.className} antialiased`}>
-        <MantineProvider>
-          <NuqsAdapter>
-            <AppShell>
-              {children}
-            </AppShell>
-          </NuqsAdapter>
-        </MantineProvider>
-      </body>
-    </html>
-  );
+	return (
+		<html lang="ja" {...mantineHtmlProps}>
+			<head>
+				<ColorSchemeScript />
+			</head>
+			<body className={`${geistSans.className} antialiased`}>
+				<MantineProvider>
+					<NuqsAdapter>{children}</NuqsAdapter>
+				</MantineProvider>
+			</body>
+		</html>
+	);
 }
