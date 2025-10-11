@@ -31,7 +31,7 @@ export function Sidebar() {
 	const pathname = usePathname();
 
 	return (
-		<aside className="h-screen w-20 border-r">
+		<aside className="h-full w-20 border-r">
 			<nav className="flex h-full flex-col items-center py-4">
 				<div className="flex flex-col items-center pt-20 gap-10">
 					{navItems.map(({ href, label, Icon, matchPrefix }) => {
