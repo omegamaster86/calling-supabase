@@ -1,26 +1,15 @@
-"use client";
+import AppHeader from "@/components/app-header";
+import { Sidebar } from "@/components/sidebar";
 
-import { usePathname } from "next/navigation";
-import { Sidebar } from "./sidebar";
-
-type Props = {
-  children: React.ReactNode;
-};
-
-// ルート配下のうち、サイドバーを非表示にしたいパスのプレフィックス
-const HIDE_SIDEBAR_PREFIXES = ["/auth"]; // ログイン/サインアップ等
-
-export default function AppShell({ children }: Props) {
-  const pathname = usePathname();
-  const hideSidebar = HIDE_SIDEBAR_PREFIXES.some((p) => pathname.startsWith(p));
-
-  if (hideSidebar) return <>{children}</>;
-
+export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex">
-      <Sidebar />
-      <main className="flex-1 min-w-0">{children}</main>
-    </div>
+    <>
+      <AppHeader />
+      <div className="pt-14 h-[calc(100vh-56px)] flex">
+        <Sidebar />
+        <main className="flex-1 min-w-0">{children}</main>
+      </div>
+    </>
   );
 }
 
